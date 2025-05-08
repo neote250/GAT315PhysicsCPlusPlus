@@ -8,6 +8,7 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 */
 #include "TrigonometryScene.h"
 #include "VectorScene.h"
+#include "PolarScene.h"
 #include "raylib.h"
 
 #include "resource_dir.h"	// utility header for SearchAndSetResourceDir
@@ -28,7 +29,7 @@ int main ()
 	
 
 	//create trig scene
-	Scene* scene = new VectorScene("vScene", 1280, 720);
+	Scene* scene = new PolarScene("pScene", 1280, 720);
 	scene->Initialize();
 
 
