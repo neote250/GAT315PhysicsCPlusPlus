@@ -11,16 +11,25 @@ public:
 		velocity {velocity},
 		size {size},
 		color {color}
+	{}	
+	Body(const Vector2& position, float size, const Color& color):
+		position {position},
+		size {size},
+		color {color}
 	{}
 
 	void Step(float dt);
 	void Draw(const Scene& scene);
 
-	Vector2 position;
-	Vector2 velocity;
+	Vector2 position{ 0 };
+	Vector2 velocity{ 0 };
 
-	float size;
-	Color color;
+
+
+
+	float size = 1;
+	float damping = 0.1f;
+	Color color = WHITE;
 
 	Body* next = nullptr;
 	Body* prev = nullptr;

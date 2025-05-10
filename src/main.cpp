@@ -29,7 +29,7 @@ int main ()
 	
 
 	//create trig scene
-	Scene* scene = new PolarScene("pScene", 1280, 720);
+	Scene* scene = new VectorScene("vScene", 1280, 720);
 	scene->Initialize();
 
 

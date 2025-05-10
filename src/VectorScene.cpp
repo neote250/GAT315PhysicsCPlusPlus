@@ -1,61 +1,45 @@
 #include "VectorScene.h"
 #include "Body.h"
 #include "raymath.h"
+#include "MathUtils.h"
 
-float randomf()
-{
-	return rand() / (float)RAND_MAX;
-}
 
 void VectorScene::Initialize()
 {
 	m_camera = new SceneCamera(Vector2{ m_width / 2.0f, m_height / 2.0f });
-	Body* body = new Body(Vector2{ 3,0 }, Vector2{ 0 }, 0.25f, WHITE);
-	m_head = body;
-	m_player = body;
-
-	for (int i = 0; i < 25; i++)
-	{
-		body->next = new Body(Vector2{ randomf() * 5, randomf() * 5 }, Vector2{ 0, 0 }, 0.25f, RED);
-		body->next->prev = body;
-		body = body->next;
-
-	}
+	m_world = new World();
+	m_world->Initialize();
 
 }
 
 void VectorScene::Update()
 {
 	float dt = GetFrameTime();
-	float rate = 1.0f;
+	float theta = randomf(0, 360);
+	
 
-	//player control
-	Vector2 input{ 0 };
-	if (IsKeyDown(KEY_A)) input.x = -1;
-	if (IsKeyDown(KEY_D)) input.x = 1;
-	if (IsKeyDown(KEY_W)) input.y = 1;
-	if (IsKeyDown(KEY_S)) input.y = -1;
-	input = Vector2Normalize(input);
-	m_player->velocity = input;
-
-	Body* body = m_head;
-
-	while (body)
+	if (IsMouseButtonPressed(0))
 	{
-		if (body == m_player)
+		Vector2 position = m_camera->ScreenToWorld(GetMousePosition());
+		Body* temp = m_world->CreateBody(position, 0.3f, RED);
+
+		int total = 50;
+		for (int i = 0; i < total; i++)
 		{
-			body->Step(dt);
-			body = body->next;
-			continue;
+			float angle = ((float)i / total) * 2 * PI;
+			float starAngle = (PI / 2.5f) * i;
+
+			Body* body = m_world->CreateBody(position, 0.05f, ColorFromHSV(randomf(360), 1,1));
+			//use offset to create spread?
+			//float offset = randomf(0, 360);
+			float x = cosf(starAngle);
+			float y = sinf(starAngle);
+			body->velocity = Vector2{ x * randomf(3, 10), y * randomf(3,10)};
 		}
 
-		Vector2 direction = m_player->position - body->position;
-		direction = Vector2Normalize(direction) * rate;
-		body->velocity = direction;
 
-		body->Step(dt);
-		body = body->next;
 	}
+	m_world->Step(dt);
 }
 
 void VectorScene::Draw()
@@ -63,14 +47,7 @@ void VectorScene::Draw()
 	m_camera->BeginMode();
 
 	DrawGrid(10, 5, DARKGRAY);
-
-	Body* body = m_head;
-
-	while (body)
-	{
-		body->Draw(*this);
-		body = body->next;
-	}
+	m_world->Draw(*this);
 
 	m_camera->EndMode();
 }
