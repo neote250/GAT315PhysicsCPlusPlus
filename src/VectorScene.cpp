@@ -2,6 +2,10 @@
 #include "Body.h"
 #include "raymath.h"
 #include "MathUtils.h"
+#include "raygui.h"
+#include "World.h"
+#include "Grav.h"
+#include "GUI.h"
 
 
 void VectorScene::Initialize()
@@ -15,12 +19,15 @@ void VectorScene::Initialize()
 void VectorScene::Update()
 {
 	float dt = GetFrameTime();
+	GUI::Update();
 	float theta = randomf(0, 360);
 	
 
-	if (IsMouseButtonPressed(0))
+	if (!GUI::mouseOverGUI && IsMouseButtonPressed(0))
 	{
 		Vector2 position = m_camera->ScreenToWorld(GetMousePosition());
+		//Body::Type type = (Body::Type)bodyTypeDropdownBoxActive;
+
 		Body* temp = m_world->CreateBody(position, 0.3f, RED);
 
 		int total = 50;
@@ -35,11 +42,40 @@ void VectorScene::Update()
 			float x = cosf(starAngle);
 			float y = sinf(starAngle);
 			body->velocity = Vector2{ x * randomf(3, 10), y * randomf(3,10)};
+			body->restitution = randomf(0.5f, 1.0f); // GUI::restitutionSliderBarValue;
+			//body->gravityScale = 0.2f;
+
+
+			//moon.addforce(-direction.normalized
+			//gravitational constant = 6.673 * 10^-11
 		}
-
-
 	}
-	m_world->Step(dt);
+	
+	//apply collision
+	for (auto body : m_world->GetBodies())
+	{
+		if (body->position.y < -5)
+		{
+			body->position.y = -5;
+			body->velocity.y *= -body->restitution;
+		}
+		if (body->position.x < -9)
+		{
+			body->position.x = -9;
+			body->velocity.x *= -body->restitution;
+		}
+		if (body->position.x > 9)
+		{
+			body->position.x = 9;
+			body->velocity.x *= -body->restitution;
+		}
+	}
+}
+void VectorScene::FixedUpdate()
+{
+	//apply forces
+	m_world->Step(Scene::fixedDeltaTime);
+
 }
 
 void VectorScene::Draw()
@@ -54,4 +90,5 @@ void VectorScene::Draw()
 
 void VectorScene::DrawGUI()
 {
+	GUI::Draw();
 }

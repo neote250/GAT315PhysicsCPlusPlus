@@ -9,6 +9,7 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include "TrigonometryScene.h"
 #include "VectorScene.h"
 #include "PolarScene.h"
+#include "SpringScene.h"
 #include "raylib.h"
 
 #include "resource_dir.h"	// utility header for SearchAndSetResourceDir
@@ -29,16 +30,27 @@ int main ()
 	
 
 	//create trig scene
-	Scene* scene = new VectorScene("vScene", 1280, 720);
+	Scene* scene = new SpringScene("SpringScene", 1280, 720);
 	scene->Initialize();
 
+	SetTargetFPS(60);
+	float timeAccumulator = 0;
 
 	// game loop
 	while (!WindowShouldClose())		// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
 		scene->Update();
+			
+		//ensure something runs at a consistent rate
+		timeAccumulator += std::min(GetFrameTime(), 0.5f);
+		while (timeAccumulator >= Scene::fixedDeltaTime)
+		{
+			scene->FixedUpdate();
+			timeAccumulator -= Scene::fixedDeltaTime;
+		}
 		scene->BeginDraw();
 		scene->Draw();
+		scene->DrawGUI();
 		scene->EndDraw();
 	}
 

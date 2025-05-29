@@ -20,7 +20,7 @@ public:
 
 	Polar& operator = (const Vector2& v)
 	{
-		angle = atan2(v.y, v.x);
+		angle = atan2f(v.y, v.x);
 		radius = sqrtf((v.x * v.x) + (v.y * v.y));
 
 		return *this;
@@ -29,8 +29,8 @@ public:
 	operator Vector2() const
 	{
 		Vector2 v;
-		v.x = cos(angle) * radius;
-		v.y = sin(angle) * radius;
+		v.x = cosf(angle) * radius;
+		v.y = sinf(angle) * radius;
 
 		return v;
 	}

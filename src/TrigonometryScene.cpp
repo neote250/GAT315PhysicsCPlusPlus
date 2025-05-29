@@ -26,7 +26,7 @@ float Vector2Length(const Vector2& v)
 
 Vector2 Vector2Normalize(const Vector2& v)
 {
-	float l = Vector2Length(v);
+	float l = sqrtf((v.x * v.x) + (v.y * v.y));
 	if (l == 0) return Vector2{ 0 };
 	return Vector2{ v.x / l, v.y / l };
 }
