@@ -13,18 +13,29 @@ public:
 public:
 	inline static bool mouseOverGUI = false;
 
-	inline static Vector2 anchor01 = { 24, 56 };
+    inline static Vector2 anchor01 = { 72, 48 }; //24,56
+    inline static Vector2 anchor02 = { 96, 88 };
+    inline static Vector2 anchor03 = { 96, 280 };
+    inline static Vector2 anchor04 = { 96, 376 };
 
-	inline static bool PhysicsWindowBoxActive = true;
+    inline static bool physicsWindowBoxActive = true;
+    inline static float massValue = 1.0f;
+    inline static float sizeValue = 0.1f;
 
-	inline static float BodyMassSliderValue = 1.0f;
-	inline static float BodySizeSliderValue = 0.1f;
-	inline static float RestitutionSliderValue = 1.0f;
-	inline static float GravityScaleSliderValue = 1.0f;
-	inline static float WGravForceSliderValue = 0.0f;
-	inline static float BodyDampingSliderValue = 0.0f;
-	inline static bool BodyTypeSelectionDropdownEditMode = false;
-	inline static int BodyTypeSelectionDropdownActive = 0;
-	inline static float GravitySliderValue = 0.0f;
+    inline static float gravityScaleValue = 1.0f;
+    inline static float dampingValue = 0.0f;
+    inline static float restitutionValue = 0.9f;
+
+    inline static bool bodyTypeEditMode = false;
+    inline static int bodyTypeActive = 0;
+
+    inline static float springDampingValue = 0.0f;
+    inline static float stiffnessValue = 0.0f;
+
+    inline static float gravitationValue = 0.0f;
+    inline static float gravityValue = -9.8f;
+    inline static bool simulateActive = true;
+    inline static float springSiffnessMultiplierValue = 0.5f;
+    inline static bool resetPressed = false;
 
 };

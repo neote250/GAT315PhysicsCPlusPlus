@@ -2,7 +2,9 @@
 #include "Body.h"
 #include "Grav.h"
 #include "GUI.h"
+#include "Collision.h"
 //#include "scene.h"
+
 
 
 World::~World()
@@ -12,7 +14,7 @@ World::~World()
 
 void World::Initialize(Vector2 Gravity, size_t poolSize)
 {
-    World::gravity = gravity;
+    World::gravity = Gravity;
     m_bodies.reserve(poolSize);
 }
 
@@ -55,6 +57,10 @@ void World::Step(float dt)
         body->Step(dt);
         body->ClearForce();
     }
+
+    m_contacts.clear();
+    CreateContacts(m_bodies, m_contacts);
+    SeparateContacts(m_contacts);
 }
 
 void World::Draw(const Scene& scene)

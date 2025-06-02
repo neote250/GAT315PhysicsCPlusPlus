@@ -31,15 +31,18 @@ void SpringScene::Update()
 
 			Vector2 position = m_camera->ScreenToWorld(GetMousePosition());
 
-			Body::Type type = (Body::Type)GUI::BodyTypeSelectionDropdownActive;
+			Body::Type type = (Body::Type)GUI::bodyTypeActive;
 
-			Body* body = m_world->CreateBody(type, position, GUI::BodyMassSliderValue,GUI::BodySizeSliderValue, ColorFromHSV(randomf(360), 1,1));
+			Body* body = m_world->CreateBody(type, position, GUI::massValue,GUI::sizeValue, ColorFromHSV(randomf(360), 1,1));
 
-			body->mass = GUI::BodyMassSliderValue;
-			body->size = GUI::BodySizeSliderValue;
-			body->gravityScale = GUI::GravityScaleSliderValue;
-			body->restitution = GUI::RestitutionSliderValue;
-			body->damping = GUI::BodyDampingSliderValue;
+			body->mass = GUI::massValue;
+			body->size = GUI::sizeValue;
+
+			body->gravityScale = GUI::gravityScaleValue;
+			body->damping = GUI::dampingValue;
+			body->restitution = GUI::restitutionValue;
+
+			
 
 			body->ApplyForce(randomOnUnitCircle() * 10, Body::ForceMode::Velocity);
 		}
@@ -71,7 +74,7 @@ void SpringScene::Update()
 				if (m_selectedBody && m_connectBody)
 				{
 					float distance = Vector2Distance(m_selectedBody->position, m_connectBody->position);
-					m_world->CreateSpring(m_selectedBody, m_connectBody, distance, 20, GUI::BodyDampingSliderValue);
+					m_world->CreateSpring(m_selectedBody, m_connectBody, distance, GUI::stiffnessValue, GUI::springDampingValue);
 				}
 				m_selectedBody = nullptr;
 				m_connectBody = nullptr;
