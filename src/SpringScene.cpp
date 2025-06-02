@@ -82,6 +82,7 @@ void SpringScene::Update()
 			}
 			
 		}
+		if (GUI::resetPressed) m_world->DestroyAll();
 	}
 	
 	//apply collision

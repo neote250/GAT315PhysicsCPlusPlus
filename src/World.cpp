@@ -58,9 +58,14 @@ void World::Step(float dt)
         body->ClearForce();
     }
 
-    m_contacts.clear();
-    CreateContacts(m_bodies, m_contacts);
-    SeparateContacts(m_contacts);
+    for (int i = 0; i < 5; i++)
+    {
+        CreateContacts(m_bodies, m_contacts);
+        SeparateContacts(m_contacts);
+        ResolveContacts(m_contacts);
+        m_contacts.clear();
+    }
+
 }
 
 void World::Draw(const Scene& scene)
