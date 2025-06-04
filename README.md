@@ -1,4 +1,4 @@
-#A simple Physics Engine
+# Simple Physics Engine (Raylib)
 This is a school project demonstrating a basic 2D physics engine built using the [raylib](https://www.raylib.com/) graphics library. It includes simple physics simulations such as motion, gravity, collisions, and damping.
 
 ## Features
