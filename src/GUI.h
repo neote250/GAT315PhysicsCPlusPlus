@@ -29,8 +29,8 @@ public:
     inline static bool bodyTypeEditMode = false;
     inline static int bodyTypeActive = 0;
 
-    inline static float springDampingValue = 0.0f;
-    inline static float stiffnessValue = 0.0f;
+    inline static float springDampingValue = 10.0f;
+    inline static float stiffnessValue = 10.0f;
 
     inline static float gravitationValue = 0.0f;
     inline static float gravityValue = -9.8f;

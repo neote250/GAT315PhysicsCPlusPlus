@@ -35,8 +35,8 @@ void GUI::Draw()
 
 		GuiLabel(Rectangle { anchor02.x + 32, anchor02.y + 136, 120, 24 }, "Body Type");
 		GuiGroupBox(Rectangle { anchor03.x + 0, anchor03.y + 0, 264, 72 }, "Spring");
-		GuiSliderBar(Rectangle { anchor03.x + 104, anchor03.y + 16, 120, 16 }, "Damping", GUI_DATA(springDampingValue), 0, 1);
-		GuiSliderBar(Rectangle { anchor03.x + 104, anchor03.y + 40, 120, 16 }, "Stiffness", GUI_DATA(stiffnessValue), 0, 1);
+		GuiSliderBar(Rectangle { anchor03.x + 104, anchor03.y + 16, 120, 16 }, "Damping", GUI_DATA(springDampingValue), 0, 20);
+		GuiSliderBar(Rectangle { anchor03.x + 104, anchor03.y + 40, 120, 16 }, "Stiffness", GUI_DATA(stiffnessValue), 0, 20);
 
 		GuiGroupBox(Rectangle { anchor04.x + 0, anchor04.y + -8, 264, 96 }, "World");
 		GuiSliderBar(Rectangle { anchor03.x + 104, anchor03.y + 104, 120, 16 }, "Gravitation", GUI_DATA(gravitationValue), 0, 5);

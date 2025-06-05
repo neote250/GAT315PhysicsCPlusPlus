@@ -82,8 +82,8 @@ void SpringScene::Update()
 			}
 			
 		}
-		if (GUI::resetPressed) m_world->DestroyAll();
 	}
+	if (GUI::resetPressed) m_world->DestroyAll();
 	
 	//apply collision
 	for (auto body : m_world->GetBodies())
